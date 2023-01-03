@@ -1,4 +1,5 @@
 import Foundation
+import CoreLocation
 
 protocol WeatherServiceDelegate {
     func didUpdateWeather(_ weatherService: WeatherService, weather: WeatherModel)
@@ -11,6 +12,11 @@ struct WeatherService {
 
     func fetchWeather(for cityName: String) {
         let urlString = "\(weatherURL)&q=\(cityName.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!)"
+        performRequest(with: urlString)
+    }
+
+    func fetchWeather(lat: CLLocationDegrees, lon: CLLocationDegrees) {
+        let urlString = "\(weatherURL)&lat=\(lat)&lon=\(lon)"
         performRequest(with: urlString)
     }
 
